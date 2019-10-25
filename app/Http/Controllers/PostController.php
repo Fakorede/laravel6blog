@@ -51,7 +51,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return view('posts.show', [ 'post' => BlogPost::findorfail($id) ]);
+        return view('posts.show', [ 'post' => BlogPost::findOrFail($id) ]);
     }
 
     /**
@@ -62,7 +62,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        return view('posts.edit', [ 'post' => BlogPost::findorfail($id) ]);
+        return view('posts.edit', [ 'post' => BlogPost::findOrFail($id) ]);
     }
 
     /**
@@ -74,7 +74,7 @@ class PostController extends Controller
      */
     public function update(StorePost $request, $id)
     {
-        $post = BlogPost::findorfail($id);
+        $post = BlogPost::findOrFail($id);
         $validatedData = $request->validated();
         $post->fill($validatedData);
         $post->save();
@@ -89,8 +89,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+        $post->delete();
+        $request->session()->flash('status', 'Blog post was deleted!');
+        
+        return redirect()->route('posts.index');
     }
 }
