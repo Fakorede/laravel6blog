@@ -48,4 +48,21 @@ class PostTest extends TestCase
 
         $this->assertEquals(session('status'), 'Blog post was created!');
     }
+
+    public function testStoreFail()
+    {
+        $values = [
+            'title' => 'N',
+            'content' => 'N'
+        ];
+
+        $this->post('/posts', $values)
+            ->assertStatus(302)
+            ->assertSessionHas('errors');
+
+        $messages = session('errors')->getMessages();
+
+        $this->assertEquals($messages['title'][0], 'The title must be at least 5 characters.');
+        $this->assertEquals($messages['content'][0], 'The content must be at least 10 characters.');
+    }
 }
