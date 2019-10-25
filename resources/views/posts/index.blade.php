@@ -6,13 +6,13 @@
             <h3>
                 <a href="{{ route('posts.show', [ 'post' => $post->id ]) }}">{{ $post->title }}</a>
             </h3>
-            <a href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
+            <a class="btn btn-primary" href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
 
-            <form action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
+            <form class="fm-inline" action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
                 @csrf
                 @method('DELETE')
 
-                <input type="submit" value="Delete">
+                <input class="btn btn-primary" type="submit" value="Delete">
             </form>
         </p>
     @empty
