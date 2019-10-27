@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\BlogPost;
+use App\Comment;
 
 class PostTest extends TestCase
 {
@@ -135,11 +136,12 @@ class PostTest extends TestCase
 
     private function createBlogPost(): BlogPost
     {
-        $post = new BlogPost();
-        $post->title = 'New title';
-        $post->content = 'Content for the post';
-        $post->save();
+    //     $post = new BlogPost();
+    //     $post->title = 'New title';
+    //     $post->content = 'Content for the post';
+    //     $post->save();
 
-        return $post;
+    //     return $post;
+        return factory(BlogPost::class)->states('new-post')->create();
     }
 }
