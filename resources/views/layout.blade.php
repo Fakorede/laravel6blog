@@ -14,8 +14,22 @@
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="{{ route('home') }}">Home</a>
             <a class="p-2 text-dark" href="{{ route('posts.index') }}">Blog Posts</a>
-            <a class="p-2 text-dark" href="{{ route('posts.create') }}">Add Blog Post</a>
+            
             <a class="p-2 text-dark" href="{{ route('contact') }}">Contact</a>
+
+            @guest
+                <a class="p-2 text-dark" href="{{ route('login') }}">Login</a>
+                @if(Route::has('register'))
+                    <a class="p-2 text-dark" href="{{ route('register') }}">Register</a>
+                @endif  
+            @else
+                <a class="p-2 text-dark" href="{{ route('posts.create') }}">Add Blog Post</a>
+                <a class="p-2 text-dark" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @endguest
         </nav>
     </div>
 
