@@ -7,7 +7,14 @@
 
     @if((new Carbon\Carbon())->diffInMinutes($post->created_at) < 5)
         This is a new post!
-    @else
-        Not new
     @endif
+
+    <h3>Comments</h3>
+    @forelse($post->comments as $comment)
+        <p>
+            {{ $comment->content }}<sup class="text-muted"> added {{ $comment->created_at->diffForHumans() }}</sup> 
+        </p>
+    @empty
+        <p>No comments yet</p>
+    @endforelse
 @endsection
