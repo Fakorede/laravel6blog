@@ -32,6 +32,17 @@ class PostTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testSeeBlogPostWithComments() {
+        $post = $this->createBlogPost();
+        factory(Comment::class, 4)->create([
+            'blog_post_id' => $post->id
+        ]);
+
+        $response = $this->get('/posts');
+
+        $response->assertSeeText('4 comments');
+    }
+
     public function testStoreValueIsValid()
     {
         $values = [
