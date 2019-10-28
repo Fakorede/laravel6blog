@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\BlogPost;
+use App\Comment;
 
 class PostTest extends TestCase
 {
@@ -50,7 +51,8 @@ class PostTest extends TestCase
             'content' => 'At least 10 characters'
         ];
 
-        $this->post('/posts', $values)
+        $this->actingAs($this->user())
+            ->post('/posts', $values)
             ->assertStatus(302)
             ->assertSessionHas('status');
 
@@ -64,7 +66,8 @@ class PostTest extends TestCase
             'content' => 'N'
         ];
 
-        $this->post('/posts', $values)
+        $this->actingAs($this->user())
+            ->post('/posts', $values)
             ->assertStatus(302)
             ->assertSessionHas('errors');
 
@@ -85,7 +88,8 @@ class PostTest extends TestCase
             'content' => 'Updated content for post'
         ];
 
-        $this->put("/posts/{$post->id}", $values)
+        $this->actingAs($this->user())
+            ->put("/posts/{$post->id}", $values)
             ->assertStatus(302)
             ->assertSessionHas('status');
 
@@ -108,7 +112,8 @@ class PostTest extends TestCase
             'content' => 'N'
         ];
 
-        $this->put("/posts/{$post->id}", $values)
+        $this->actingAs($this->user())
+            ->put("/posts/{$post->id}", $values)
             ->assertStatus(302)
             ->assertSessionHas('errors');
 
@@ -124,7 +129,8 @@ class PostTest extends TestCase
 
         $this->assertDatabaseHas('blog_posts', $post->toArray());
 
-        $this->delete("/posts/{$post->id}")
+        $this->actingAs($this->user())
+            ->delete("/posts/{$post->id}")
             ->assertStatus(302)
             ->assertSessionHas('status');
             
