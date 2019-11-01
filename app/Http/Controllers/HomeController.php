@@ -14,21 +14,7 @@ class HomeController extends Controller
         return view('contact');
     }
 
-    public function post($id, $greet = 1) {
-        $pages = [
-            1 => [
-                'title' => 'page one'
-            ],
-            2 => [
-                'title' => 'page two'
-            ]
-        ];
-    
-        $greeting = [1 => 'Hello from ', 2 => 'Welcome to '];
-    
-        return view('post', [
-            'data' => $pages[$id], 
-            'welcome' => $greeting[$greet]  
-        ]);
+    public function secret() {
+        return view('secret');
     }
 }

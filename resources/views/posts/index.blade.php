@@ -17,14 +17,18 @@
                 <p>No comments yet!</p>
             @endif
 
-            <a class="btn btn-primary" href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
+            @can('update', $post)  
+                <a class="btn btn-primary" href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
+            @endcan
 
-            <form class="fm-inline" action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
-                @csrf
-                @method('DELETE')
+            @can('delete', $post)
+                <form class="fm-inline" action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
 
-                <input class="btn btn-primary" type="submit" value="Delete">
-            </form>
+                    <input class="btn btn-primary" type="submit" value="Delete">
+                </form>
+            @endcan
         </p>
     @empty
         <p>No posts yet</p>
