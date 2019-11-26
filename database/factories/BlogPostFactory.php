@@ -15,6 +15,5 @@ $factory->define(BlogPost::class, function (Faker $faker) {
 $factory->state(BlogPost::class, 'new-post', function (Faker $faker) {
     return [
         'title' => 'New title',
-        'content' => 'Content for the post'
     ];
 });
