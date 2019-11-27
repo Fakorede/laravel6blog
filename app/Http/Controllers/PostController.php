@@ -57,7 +57,7 @@ class PostController extends Controller
         $blogPost = BlogPost::create($validatedData);
         $request->session()->flash('status', 'Blog post was created!');
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.show', ['post' => $blogPost->id]);
     }
 
     /**

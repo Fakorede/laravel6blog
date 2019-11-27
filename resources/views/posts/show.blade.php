@@ -5,8 +5,10 @@
     <p>{{ $post->content }}</p>
     <p>Added: {{ $post->created_at->diffForHumans() }}</p>
 
-    @if((new Carbon\Carbon())->diffInMinutes($post->created_at) < 5)
-        This is a new post!
+    @if((new Carbon\Carbon())->diffInMinutes($post->created_at) < 30)
+        @badge(['type' => 'primary'])
+            New
+        @endbadge
     @endif
 
     <h3>Comments</h3>
