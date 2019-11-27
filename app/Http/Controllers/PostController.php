@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\BlogPost;
 use App\Http\Requests\StorePost;
 use Illuminate\Http\Request;
@@ -24,7 +25,12 @@ class PostController extends Controller
     {
         return view(
             'posts.index',
-            ['posts' => BlogPost::withCount('comments')->get()]
+            [
+                'posts' => BlogPost::latest()->withCount('comments')->get(),
+                'mostCommented' => BlogPost::mostCommented()->take(5)->get(),
+                'mostActive' => User::withMostBlogPosts()->take(5)->get(),
+                'mostActiveLastMonth' => User::withMostBlogPostsLastMonth()->take(5)->get(),
+            ]
         );
     }
 
@@ -63,7 +69,7 @@ class PostController extends Controller
     public function show($id)
     {
         return view('posts.show', [
-            'post' => BlogPost::with('comments')->findOrFail($id),
+            'post' => BlogPost::with('comments')->findOrFail($id)
         ]);
     }
 
