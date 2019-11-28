@@ -36,20 +36,28 @@
                         <p>No comments yet!</p>
                     @endif
     
-                    @can('update', $post)  
-                        <a class="btn btn-primary" href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
-                    @endcan
+                    @auth
+                        @can('update', $post)  
+                            <a class="btn btn-primary" href="{{ route('posts.edit', ['post' => $post->id]) }}">
+                                Edit
+                            </a>
+                        @endcan
+                    @endauth
+                    
     
-                    @if (!$post->trashed())
-                        @can('delete', $post)
-                            <form class="fm-inline" action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
+                    @auth
+                        @if (!$post->trashed())
+                            @can('delete', $post)
+                                <form class="fm-inline" action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <input class="btn btn-primary" type="submit" value="Delete">
-                            </form>
-                        @endcan 
-                    @endif
+                                    <input class="btn btn-primary" type="submit" value="Delete">
+                                </form>
+                            @endcan 
+                        @endif
+                    @endauth
+                    
                     
                 </p>
             @empty
