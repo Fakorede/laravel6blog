@@ -29,7 +29,9 @@
 
                     @updated(['date' => $post->created_at, 'name' => $post->user->name])
                     @endupdated
-                    
+
+                    @tags(['tags' => $post->tags])
+                    @endtags   
     
                     @if($post->comments_count)
                         <p>{{ $post->comments_count }} comments</p>
