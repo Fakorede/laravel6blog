@@ -17,11 +17,13 @@
         Updated
     @endupdated
 
+    <p>Currently read by {{ $counter }} people</p>
+
     <h3>Comments</h3>
     @forelse($post->comments as $comment)
         <p>
             {{ $comment->content }}
-            {{-- <sup class="text-muted"> added {{ $comment->created_at->diffForHumans() }}</sup> --}}
+            --}}
             @updated(['date' => $comment->created_at])
             @endupdated 
         </p>

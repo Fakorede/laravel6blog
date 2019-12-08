@@ -3,9 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col-8">
+            
             @forelse($posts as $post)
                 <p>
-                    
+                        
                     <h3>
 
                         @if ($post->trashed())
