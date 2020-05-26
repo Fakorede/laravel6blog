@@ -25,6 +25,9 @@
         <p>Currently read by {{ $counter }} people</p>
 
         <h3>Comments</h3>
+
+        @include('comments._form')
+
         @forelse($post->comments as $comment)
             <p>
                 {{ $comment->content }}
