@@ -26,10 +26,10 @@ REDIS_PASSWORD={your-password}
 REDIS_CACHE_DB=0
 ```
 
-Also, don't forget to set the cache driver:
+Also, don't forget to set the cache driver to `redis` or `array` if you won't be using the redis configuration:
 
 ```
-CACHE DRIVER=redis
+CACHE_DRIVER=redis
 ```
 
 7. Start app with `php artisan serve`.

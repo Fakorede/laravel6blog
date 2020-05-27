@@ -31,10 +31,9 @@
         @forelse($post->comments as $comment)
             <p>
                 {{ $comment->content }}
-                --}}
-                @updated(['date' => $comment->created_at])
-                @endupdated 
             </p>
+            @updated(['date' => $comment->created_at, 'name' => $comment->user->name])
+            @endupdated 
         @empty
             <p>No comments yet</p>
         @endforelse
