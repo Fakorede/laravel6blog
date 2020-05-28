@@ -12,11 +12,11 @@ class Image extends Model
      *
      * @var array
      */
-    protected $fillable = ['path', 'blog_post_id'];
+    protected $fillable = ['path'];
 
     public function blogPost()
     {
-        return $this->belongsTo('App\BlogPost');
+        return $this->morphTo();
     }
 
     public function url()
