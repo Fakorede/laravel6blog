@@ -42,14 +42,19 @@ class User extends Authenticatable
         return $this->hasMany('App\BlogPost');
     }
 
-    public function comments()
+    public function commentsOn()
     {
-        return $this->hasMany('App\Comment');
+        return $this->morphMany('App\Comment', 'commentable')->latest();
     }
 
     public function image()
     {
         return $this->morphOne('App\Image', 'imageable');
+    }
+
+    public function scopeLatest(Builder $query)
+    {
+        return $query->orderBy(static::CREATED_AT, 'desc');
     }
 
     public function scopeWithMostBlogPosts(Builder $query)
