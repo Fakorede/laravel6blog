@@ -14,7 +14,7 @@ class Image extends Model
      */
     protected $fillable = ['path'];
 
-    public function blogPost()
+    public function imageable()
     {
         return $this->morphTo();
     }

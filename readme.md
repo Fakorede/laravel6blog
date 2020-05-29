@@ -53,4 +53,5 @@ CACHE_DRIVER=redis
 -   Caching.
 -   Files uploads using the Storage facade.
 -   Using Traits in Laravel - SoftDeletes and creating custom ones.
+-   Mailable class to send e-mails.
 -   Testing in Laravel.
