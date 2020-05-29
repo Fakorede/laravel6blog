@@ -37,3 +37,20 @@ CACHE_DRIVER=redis
 8. Run the tests with the `./vendor/bin/phpunit` command.
 
 9. Run `php artisan db:seed` to generate some fake data.
+
+## What I have learnt from this Project
+
+-   Mastered Models, Controllers, Views and all the basics.
+-   Solidified knowledge on Database migrations.
+-   Database seeding and factories.
+-   Local and Global Eloquent Query Scopes
+-   Solidified knowledge on PHP Artisan commands.
+-   Solidified knowledge on Eloquent Relationships(One to One, One to Many, Many to Many relationships).
+-   Learnt Polymorphic Relationships.
+-   Blade Components.
+-   Authentication Guards.
+-   Authorization using Gates and Policies.
+-   Caching.
+-   Files uploads using the Storage facade.
+-   Using Traits in Laravel - SoftDeletes and creating custom ones.
+-   Testing in Laravel.
