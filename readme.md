@@ -32,11 +32,28 @@ Also, don't forget to set the cache driver to `redis` or `array` if you won't be
 CACHE_DRIVER=redis
 ```
 
-7. Start app with `php artisan serve`.
+7. Configure settings for queues and background processing, you could optionally set it to redis.
 
-8. Run the tests with the `./vendor/bin/phpunit` command.
+```
+QUEUE_CONNECTION=database
+```
 
-9. Run `php artisan db:seed` to generate some fake data.
+8. Setup Mailtrap
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME={your-username}
+MAIL_PASSWORD={your-password}
+MAIL_ENCRYPTION=null
+```
+
+9.  Start app with `php artisan serve`.
+
+10. Run the tests with the `./vendor/bin/phpunit` command.
+
+11. Run `php artisan db:seed` to generate some fake data.
 
 ## What I have learnt from this Project
 
@@ -54,4 +71,5 @@ CACHE_DRIVER=redis
 -   Files uploads using the Storage facade.
 -   Using Traits in Laravel - SoftDeletes and creating custom ones.
 -   Mailable class to send e-mails.
+-   Background processing
 -   Testing in Laravel.

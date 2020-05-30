@@ -17,7 +17,7 @@
 
 <p>
     {{-- $message->embed($comment->user->image->url()) --}}
-    <img src="{{ $message->embed(storage_path('app/public') . '/' . $comment->user->image->path) }}">
+    <img src="{{ $message->embed(storage_path('app/public/') . $comment->user->image->path) }}">
     <a href="{{ route('users.show', ['user' => $comment->user->id]) }}">
     {{ $comment->user->name }}</a>
 </p> commented:
