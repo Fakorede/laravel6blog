@@ -1,9 +1,7 @@
 @component('mail::message')
-# New comment on your blog post.
+# New comment on a blog post you're watching.
 
-Hi {{ $comment->commentable->user->name }},
-
-Someone has made a new comment on your blog post.
+Hi {{ $user->name }},
 
 @component('mail::button', ['url' => route('posts.show', ['post' => $comment->commentable->id]) ])
 View the Post
