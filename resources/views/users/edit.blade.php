@@ -11,21 +11,32 @@
 
                 <div class="card mt-4">
                     <div class="card-body">
-                        <h6>Upload a different photo</h6>
+                        <h6>{{ __('Upload a different photo') }}</h6>
                         <input type="file" name="avatar" class="form-control-file">
                     </div>
                 </div>
             </div>
             <div class="col-8">
                 <div class="form-group">
-                    <label>Name:</label>
+                    <label>{{ __('Name:') }}</label>
                     <input type="text" value="" name="name" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>{{ __('Language:') }}</label>
+                   <select class="form-control" name="locale">
+                       @foreach (App\User::LOCALE as $locale => $label)
+                           <option value="{{ $locale }}" {{ $user->locale !== $locale ?: 'selected' }}>
+                                {{ $label }}
+                            </option>
+                       @endforeach
+                   </select>
                 </div>
 
                 @errors @enderrors
                 
                 <div class="form-group">
-                    <input type="submit" value="Save Changes" class="btn btn-primary">
+                    <input type="submit" value="{{ __('Save changes') }}" class="btn btn-primary">
                 </div>
             </div>
         </div>

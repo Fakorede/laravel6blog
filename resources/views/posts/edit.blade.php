@@ -7,6 +7,6 @@
 
     @include('posts._form')
 
-    <button class="btn btn-primary btn-block" type="submit">Update</button>
+    <button class="btn btn-primary btn-block" type="submit">{{ __('Update!') }}</button>
 </form>
 @endsection
