@@ -1,6 +1,6 @@
 @extends('layout')
 
 @section('content')
-    <h1> Welcome to Laravel</h1>
-    <p>This is the landing page of our application</p>
+    <h1>{{ __('Welcome to Bloggable!') }}</h1>
+    <p>{{ __('This is the homepage of our blogging application') }}</p>
 @endsection
