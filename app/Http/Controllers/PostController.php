@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Image;
 use App\BlogPost;
+use App\Contracts\CounterContract;
 use App\Events\BlogPostPosted;
 use App\Http\Requests\StorePost;
 use Illuminate\Http\Request;
@@ -14,10 +15,14 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function __construct()
+    private $counter;
+
+    public function __construct(CounterContract $counter)
     {
         $this->middleware('auth')
             ->except(['index', 'show']);
+
+        $this->counter = $counter;
     }
     /**
      * Display a listing of the resource.
@@ -56,9 +61,7 @@ class PostController extends Controller
         $validatedData['user_id'] = $request->user()->id;
         $blogPost = BlogPost::create($validatedData);
 
-
-        if($request->hasFile('thumbnail')) 
-        {
+        if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('thumbnails', 'public');
             $blogPost->image()->save(
                 Image::make(['path' => $path])
@@ -85,44 +88,11 @@ class PostController extends Controller
                 ->findOrFail($id);
         });
 
-        // sessions to keep track of users
-        $sessionId = session()->getId();
-        $counterKey = "blog-post-{$id}-counter";
-        $usersKey = "blog-post-{$id}-users";
-
-        $users = Cache::tags(['blog-post'])->get($usersKey, []);
-        $usersUpdate = [];
-        $difference = 0;
-        $now = now();
-
-        foreach ($users as $session => $lastVisit) {
-            // if user is expired, remove from list and decrease counter else keep on cached list
-            if ($now->diffInMinutes($lastVisit) >= 1) {
-                $difference--;
-            } else {
-                $usersUpdate[$session] = $lastVisit;
-            }
-        }
-        // If user isnt on the list or was on the list and removed
-        if (!array_key_exists($sessionId, $users) || $now->diffInMinutes($users[$sessionId]) >= 1) {
-            $difference++;
-        }
-        // update user with current time
-        $usersUpdate[$sessionId] = $now;
-
-        Cache::tags(['blog-post'])->forever($usersKey, $usersUpdate);
-
-        if (!Cache::tags(['blog-post'])->has($counterKey)) {
-            Cache::tags(['blog-post'])->forever($counterKey, 1);
-        } else {
-            Cache::tags(['blog-post'])->increment($counterKey, $difference);
-        }
-
-        $counter = Cache::tags(['blog-post'])->get($counterKey);
+        // $counter = resolve(Counter::class);
 
         return view('posts.show', [
             'post' => $blogPost,
-            'counter' => $counter,
+            'counter' => $this->counter->increment("blog-post-{$id}", ['blog-post']),
         ]);
     }
 
@@ -164,17 +134,14 @@ class PostController extends Controller
         $validatedData = $request->validated();
         $post->fill($validatedData);
 
-        if($request->hasFile('thumbnail')) 
-        {
+        if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('thumbnails', 'public');
 
-            if($post->image) 
-            {
+            if ($post->image) {
                 Storage::disk('public')->delete($post->image->path);
                 $post->image->path = $path;
                 $post->image->save();
-            } else 
-            {
+            } else {
                 $post->image()->save(
                     Image::make(['path' => $path])
                 );

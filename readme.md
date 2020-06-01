@@ -72,4 +72,6 @@ MAIL_ENCRYPTION=null
 -   Using Traits in Laravel - SoftDeletes and creating custom ones.
 -   Mailable class to send e-mails.
 -   Background processing
+-   Localization
+-   Service, Service Containers, Dependency Injection, Contracts and Facades.
 -   Testing in Laravel.
